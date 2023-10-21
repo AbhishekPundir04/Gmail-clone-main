@@ -1,0 +1,192 @@
+@import "../../../assets/style/sass/variable";
+
+.auth_box {
+  .logo-image1 {
+    text-align: center;
+    margin-bottom: 0.6rem;
+    img {
+      width: 93px;
+      height: 116px;
+    }
+  }
+  .login-text1 {
+    // text-align: center;
+    margin-bottom: 1.5rem;
+    p {
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 36px;
+
+      color: #355995;
+    }
+  }
+
+  .rember_common_bx {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .MuiFormControlLabel-label {
+      font-size: 1.2rem;
+      line-height: 1.5rem;
+    }
+  }
+  .text-box2 p {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #000000;
+    margin-bottom: 14px;
+  }
+  .text3 {
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 2rem;
+    color: #000000;
+    text-align: right;
+    cursor: pointer;
+  }
+  .MuiInputBase-root {
+    height: 54px !important;
+    border-radius: 10px !important;
+  }
+  .login_btn_custom button {
+    width: 730px !important;
+    border-radius: 15px;
+    height: 54px;
+    font-weight: 600;
+    font-size: 16px !important;
+    color: #ffffff;
+    box-shadow: 0px 6px 26px 0px #23508b26 !important;
+    background-color: #355995 !important;
+    text-transform: capitalize !important;
+    margin-top: 35px !important;
+  }
+
+  .forgot_password {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px !important;
+    font-size: 16px !important;
+    font-weight: 500;
+    font-family: Poppins !important;
+  }
+
+  .back_to_login button {
+    width: 100%;
+    border-radius: 15px;
+    height: 54px;
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: $primary;
+    background-color: #ffffff;
+    border: 1px solid $primary;
+  }
+  .form-div {
+    // display: flex;
+    // align-items: center;
+    // width: 60%;
+  }
+  // .flex_box {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   height: 100vh;
+  //   background-color: #ffffff;
+  // }
+}
+.login_image {
+  background-image: url("../../../../src/assets/images/login-final-image.svg");
+  min-height: 100vh !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-size: cover !important;
+  position: relative;
+}
+
+.top_heading {
+  display: flex;
+  align-items: center !important;
+  margin-top: 28px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 24px !important;
+  color: #000000;
+}
+
+.jk_logo {
+  background-image: url("../../../assets/images/jk_Img.svg");
+  width: 26px !important;
+  height: 33px !important;
+  margin-right: 10px !important;
+  // margin-left: 420px !important;
+}
+
+@media only screen and (max-width: 1760px) {
+  .jk_logo {
+    width: 26px !important;
+    height: 33px !important;
+    margin-left: 300px !important;
+  }
+}
+@media only screen and (max-width: 1460px) {
+  .jk_logo {
+    width: 26px !important;
+    height: 33px !important;
+    margin-left: 300px !important;
+  }
+}
+.welcome_heading {
+  background-color: #355995;
+  font-style: Poppins !important;
+  color: white;
+  font-weight: 700;
+  font-size: 32px;
+  margin-bottom: 35px !important;
+  line-height: 48px;
+  width: 340px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 197px;
+  border-radius: 0px 16px 16px 0;
+}
+
+.login_form_grid {
+  display: flex;
+  justify-content: center !important;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+}
+.main-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .auth-box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0px 4px 14px 0px #3498db;
+    margin-top: 200px;
+    padding: 30px;
+    width: 450px;
+    height: 550px;
+
+    .MuiTypography-h5 {
+      margin-top: 35px;
+      font-weight: 600;
+      font-size: 25px !important;
+      margin-bottom: 28px;
+    }
+    .MuiTypography-body1{
+      cursor: pointer;
+      padding-top: 25px;
+    }
+   
+  }
+}
+

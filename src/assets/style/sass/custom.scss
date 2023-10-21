@@ -1,0 +1,13 @@
+@import "./variable";
+// css written here--------------------------------/////////
+
+body {
+  font-family: $font-family;
+  background-color: #f8f8f8 !important;
+}
+.error {
+  color: red;
+  font-size: 12px;
+  padding-left: 5px;
+  margin-top: 2px;
+}

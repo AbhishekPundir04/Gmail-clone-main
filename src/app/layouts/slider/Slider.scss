@@ -1,0 +1,49 @@
+.slider-box{
+    width:80%;
+    align-self: center;
+  }
+  .slick-next:before {
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+    font-size: 2.125rem !important;
+  }
+  
+  .slick-prev::before {
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+    font-size: 2.125rem !important;
+  }
+  
+  .slick-next {
+    right: 23px !important;
+  }
+  
+  .slick-prev {
+    left: 10px !important;
+    z-index: 999 !important;
+  }
+  
+  .main-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .signin-typo{
+    // font-size: 18px !important;
+    // font-weight: 60px;
+  }
+  
+  .password-icon{
+    width: 32.92px;
+    background: #000000;
+  }
+  
+  span{
+    color: #607163;
+  }
+  
+  .divider{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
