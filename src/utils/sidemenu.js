@@ -1,15 +1,15 @@
-import { ReactComponent as InboxIcon } from "@mui/icons-material/Inbox";
-import { ReactComponent as SendIcon } from "@mui/icons-material/Send";
+import SendIcon from "@mui/icons-material/Send";
+import MailIcon from '@mui/icons-material/Mail';
 
 export const firstMenu = [
   {
-    icons: <InboxIcon />,
+    icons: <MailIcon />,
     title: `Inbox`,
     to: "/inbox",
   },
   {
-    icons: <SendIcon />,
-    title: `Inbox`,
+    icons: <MailIcon />,
+    title: `Sent`,
     to: "/sent",
   },
 ];

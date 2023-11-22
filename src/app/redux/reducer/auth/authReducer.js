@@ -6,22 +6,21 @@ const initialState = {
   msg: "",
 };
 export const authReducer = (state = initialState, action) => {
-  console.log("action",action.payload)
   switch (action.type) {
-    case authTypes.POST_SIGN_ADMIN_PENDING:
+    case authTypes.POST_SIGN_PENDING:
       return {
         ...state,
         isLoading: action.isLoading,
         msg: "",
       };
-    case authTypes.POST_SIGN_ADMIN_SUCCESS:
+    case authTypes.POST_SIGN_SUCCESS:
       return {
         ...state,
         isLoading: action.isLoading,
         adminData: action.payload,
         msg: "",
       };
-    case authTypes.POST_SIGN_ADMIN_FAILED:
+    case authTypes.POST_SIGN_FAILED:
       return {
         ...state,
         isLoading: action.isLoading,

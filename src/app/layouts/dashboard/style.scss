@@ -1,19 +1,20 @@
 .MuiGrid-container {
   display: flex;
   align-items: center;
+
   .header-first {
     display: flex;
     align-items: center;
 
     .icon-button-div {
-      background-color: #eaf1fb;
       width: 55px;
-      height: 48px;
+      height: 58px;
     }
 
     .MuiIconButton-sizeMedium {
       width: 50px;
       height: 50px;
+      background-color: #eaf1fb;
     }
     img {
       padding-left: 22px;
@@ -47,17 +48,12 @@
     }
   }
 
-  .main-profile-div{
+  .avatar-div {
     display: flex;
     justify-content: end;
-    .profile-child-div{
-    
-      border: 1px solid rgb(61, 32, 32);
-      height: 48px;
-      width: 134px;
-      border-radius: 6px;
-      box-shadow: 0px 0px 0.1px 0.2px;
-    }
-   
+    margin-right: 15px;
+  }
+  .MuiAvatar-circular {
+    cursor: pointer;
   }
 }

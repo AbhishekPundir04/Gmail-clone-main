@@ -1,0 +1,21 @@
+.commonSelectWrpper {
+    .labelClass {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      color: #000;
+      margin-bottom: 10px;
+    }
+    .formSelectBx {
+      width: 100%;
+      .MuiInputBase-root {
+        height: 58px;
+        border-radius: 8px;
+        width: 100%;
+      }
+    }
+  }
+  .accordianBx {
+    margin-top: 1.5rem;
+  }
+  

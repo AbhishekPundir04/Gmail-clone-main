@@ -12,45 +12,31 @@ import { useDispatch } from "react-redux";
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const initialValues = {
     email: "",
     password: "",
   };
-  const validationSchema = yup.object({
-    email: yup
-      .string("")
-      .trim()
-      .test(
-        "email-without-spaces",
-        "Email cannot contain spaces",
-        (value) => !/\s/.test(value)
-      )
-      .email("follow this format abc123@abc.abc")
-      .required("Email address is required"),
-    password: yup.string(),
-    // .required("Password is required*")
-    // .min(8, "Password is too short - should be 8 chars minimum.")
-    // .max(20, "Password is too long - should be 20 chars maximum.")
-    // .matches(
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-    //   "*Must contain 8 characters, one uppercase, one lowercase, one number and one special case character"
-    // ),
-  });
-
+  const validationSchema = yup.object().shape({
+    email: yup.string().required("*Year is required"),
+    password: yup.string().required("*Cases filled is required"),
+  })
   const onSubmit = (values) => {
-    console.log("values", values);
     dispatch(
       loginAction(values, () => {
-        navigate("/dashboard");
+        navigate("/home");
       })
     );
+
+    console.log("values", values);
+    
   };
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit,
   });
+
+  const { errors, touched } = formik;
 
   const handleForgotPasswordClick = () => {
     navigate("/forgot-password");
@@ -59,7 +45,7 @@ const SignIn = () => {
     <div className="main-div">
       <form onSubmit={formik.handleSubmit}>
         <Box className="auth-box">
-          <Typography variant="h5" component="div">
+          <Typography variant="h4" component="div">
             Login
           </Typography>
           <Grid container spacing={5}>
@@ -70,8 +56,8 @@ const SignIn = () => {
                 value={formik.values.email}
                 onChange={formik.handleChange}
               />
-              {formik.touched.email && formik.errors.email && (
-                <div className="error">{formik.errors.email}</div>
+              {touched.email && errors.email && (
+                <div className="error">{errors.email}</div>
               )}
             </Grid>
             <Grid item xs={12}>
@@ -82,8 +68,8 @@ const SignIn = () => {
                 value={formik.values.password}
                 onChange={formik.handleChange}
               />
-              {formik.touched.password && formik.errors.password && (
-                <div className="error">{formik.errors.password}</div>
+              {touched.password && errors.password && (
+                <div className="error">{errors.password}</div>
               )}
             </Grid>
             <Grid item xs={12}>

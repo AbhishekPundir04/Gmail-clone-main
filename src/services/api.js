@@ -79,3 +79,5 @@ export const PATCH = async (url, body, options) => {
 };
 
 export { axiosInstance };
+  
+export default axios;

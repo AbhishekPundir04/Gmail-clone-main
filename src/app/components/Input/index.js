@@ -1,15 +1,15 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { InputLabel, FormControl } from "@mui/material";
+import "./input.scss";
 
 export default function Inputs({
   title,
   placeholder,
-  classNames,
+  labelClassName,
   rows,
   istextField,
   istextArea,
-  main_input_wrapper,
   name,
   value,
   id,
@@ -18,10 +18,11 @@ export default function Inputs({
   props,
   onKeyDown,
   onInput,
+  disabled,
 }) {
   return (
-    <div className={main_input_wrapper}>
-      <InputLabel id="label" className={classNames}>
+    <div className="main_input_wrapper">
+      <InputLabel id="label" className={labelClassName}>
         {title}
       </InputLabel>
       <FormControl fullWidth>
@@ -36,6 +37,7 @@ export default function Inputs({
             onKeyPress={onKeyPress}
             onKeyDown={onKeyDown}
             onInput={onInput}
+            disabled={disabled}
           />
         )}
         {istextArea && (
