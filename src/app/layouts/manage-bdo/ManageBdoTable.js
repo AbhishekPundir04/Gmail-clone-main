@@ -1,84 +1,53 @@
-import {
-  IconButton,
-  Pagination,
-  Switch,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import React, { useEffect } from "react";
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { IconButton, Pagination, Switch } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CommonSelect from "../../components/select";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { districtOfficerAction } from "../../redux/action/district_offer_action/DistrictOfficerAction";
-import { useDispatch, useSelector } from "react-redux";
-import { districtListAction } from "../../redux/action/district/DistrictListAction";
-
-const DistrictOfficerTable = ({
+export default function ManageBdoTable({
   rows,
   count,
   page,
   rowsPerPage,
   handleChangeRowsPerPage,
   handleChangePage,
-  checked,
   handleChangeSwitch,
-  district,
-  handleChangeDistrict,
-  handleStatusChange,
-}) => {
+}) {
   const navigate = useNavigate();
   const totalPages = Math.ceil(count / rowsPerPage);
-  console.log("first", rows);
-  const dispatch = useDispatch();
-
-
-  useEffect(() => {
-    dispatch(districtListAction(venPayload));
-  }, [dispatch, rowsPerPage, page]);
-
-  const venPayload = {
-    size: rowsPerPage,
-    page: page,
-  };
-
-  const { districtListData } = useSelector(
-    (store) => store.districtListReducer
-  );
-  console.log("districtListData",districtListData)
-
-  // const getDistrictByName = (id) =>{
-  //   let districtName = districtListData?.list?.find((district)=>district.districtId===id)
-
-  //   return districtName?.name;
-  // }
-  // console.log("first dd", getDistrictByName("random"))
-
-  const getDistrictNameById = (id) => {
-    let districtName = districtListData?.list?.find(
-      (district) => district.districtId === id
-    );
-    console.log("data", districtName);
-
-    return districtName?.name;
-  };
-  console.log("districtName", getDistrictNameById("655c515c86b3b78bd4aad4c0"));
-
+  const startIndex = (page - 1) * rowsPerPage + 1;
+  console.log(rows, "rows");
   return (
     <>
       <TableContainer className="tableWrapper ">
+        <div className="filterBx">
+          <p>Filter By</p>
+          <CommonSelect
+            // value={district}
+            name="districtId"
+            title="District"
+            // handleChange={handleChangeDistrict}
+            labelClass="labelClass"
+            // isMoreOptions={districtListData?.list}
+            main_className="formSelectBx"
+          />
+        </div>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               {/* <TableCell>S.No.</TableCell> */}
               <TableCell>Name of District Officer</TableCell>
               <TableCell> Designation </TableCell>
-              <TableCell> Registration Date</TableCell>
-              <TableCell>District</TableCell>
-              <TableCell>Email Address By</TableCell>
+              <TableCell> District </TableCell>
+              <TableCell>Block</TableCell>
+              <TableCell>Registration Date</TableCell>
+              <TableCell>Email Address</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
@@ -87,11 +56,14 @@ const DistrictOfficerTable = ({
               rows?.slice(0, rows?.length).map((row, index) => {
                 return (
                   <TableRow key={index}>
-                    {/* <TableCell>{startIndex + index}</TableCell> */}
+                    {/* <TableCell component="th" scope="row">
+                      {startIndex + index}
+                    </TableCell> */}
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.designation}</TableCell>
+                    <TableCell>{row.districtId}</TableCell>
+                    <TableCell>{row.userType}</TableCell>
                     <TableCell>{row.createdAt}</TableCell>
-                    <TableCell>{getDistrictNameById(row.districtId)}</TableCell>
                     <TableCell>{row.email}</TableCell>
                     <TableCell>
                       <div className="actionIcon">
@@ -100,20 +72,22 @@ const DistrictOfficerTable = ({
                           color="primary"
                           onClick={() =>
                             navigate(
-                              `/district-officer/view-district-officer/${row?._id}`
+                              `/manage-bdo/view-district-officer/:id${row?._id}`
                             )
                           }
                         >
                           <RemoveRedEyeIcon />
                         </IconButton>
+                        {/* <Switch
+                          onChange={(e) => handleChangeSwitch(e, row)}
+                          inputProps={{ "aria-label": "controlled" }}
+                        /> */}
 
                         <IconButton
                           aria-label="view"
                           color="primary"
                           onClick={() =>
-                            navigate(
-                              `/district-officer/edit-district-officer/${row?._id}`
-                            )
+                            navigate(`/manage-bdos/edit-bdo-form/${row?._id}`)
                           }
                         >
                           <BorderColorIcon />
@@ -133,7 +107,7 @@ const DistrictOfficerTable = ({
           </TableBody>
         </Table>
       </TableContainer>
-      {totalPages && (
+      {totalPages >= 1 && (
         <Pagination
           count={totalPages}
           variant="outlined"
@@ -146,6 +120,4 @@ const DistrictOfficerTable = ({
       )}
     </>
   );
-};
-
-export default DistrictOfficerTable;
+}

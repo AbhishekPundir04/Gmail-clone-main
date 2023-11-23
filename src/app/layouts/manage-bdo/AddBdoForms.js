@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
 import { districtListAction } from "../../redux/action/district/DistrictListAction";
 
-const AddDistrictForms = () => {
+const AddBdoForms = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -77,27 +77,29 @@ const AddDistrictForms = () => {
     (isEdit || isView) && dispatch(getDistrictOfficerDetails(id));
   }, [dispatch, id, isEdit, isView]);
 
-  const { districtDetailsData } = useSelector(
+  const { bdoDetailsData } = useSelector(
     (store) => store.getDistrictOffcDetailsData
   );
 
   useEffect(() => {
-    if ((isEdit || isView) && districtDetailsData) {
-      setFieldValue("name", districtDetailsData.name);
-      setFieldValue("email", districtDetailsData.email);
-      setFieldValue("phone", districtDetailsData.phone);
-      setFieldValue("designation", districtDetailsData.designation);
-      setFieldValue("districtId", districtDetailsData?.districtData?.[0]?._id);
-      setFieldValue("address", districtDetailsData.address);
+    if ((isEdit || isView) && bdoDetailsData) {
+      setFieldValue("name", bdoDetailsData.name);
+      setFieldValue("designation", bdoDetailsData.designation);
+      setFieldValue("districtId", bdoDetailsData?.districtData?.[0]?._id);
+      setFieldValue("email", bdoDetailsData.blockId);
+      setFieldValue("phone", bdoDetailsData.email);
+
+      setFieldValue("phone", bdoDetailsData.createdAt);
+      setFieldValue("address", bdoDetailsData.address);
     }
-  }, [isEdit, isView, setFieldValue, districtDetailsData]);
+  }, [isEdit, isView, setFieldValue, bdoDetailsData]);
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div className="main_bx_wrapper">
           <p className="form_heading" sx={{ marginBottom: "1.5rem" }}>
-            {!isEdit ? "Add New District Officer" : "Edit District Officer"}
+            {!isEdit ? "Add BDO" : "Edit District Officer"}
           </p>
 
           <Grid container spacing={2}>
@@ -157,6 +159,19 @@ const AddDistrictForms = () => {
               />
             </Grid>
             <Grid item xs={6}>
+              <Inputs
+                value={values.designation}
+                name="address"
+                onChange={handleChange}
+                showStar={true}
+                title="Address"
+                placeholder="Enter district officer name"
+                istextField={true}
+                labelClassTextfield="labelClassTextfield"
+                disabled={isView}
+              />
+            </Grid>
+            <Grid item xs={6}>
               <CommonSelect
                 value={values.districtId}
                 name="districtId"
@@ -169,18 +184,17 @@ const AddDistrictForms = () => {
                 label="District"
               />
             </Grid>
-            <Grid item xs={12}>
-              <Inputs
-                value={values.address}
-                name="address"
-                onChange={handleChange}
-                showStar={true}
-                title="Address"
-                placeholder="Enter address"
-                istextField={true}
-                labelClassTextfield="labelClassTextfield"
+            <Grid item xs={6}>
+              <CommonSelect
+                value={values.districtId}
+                name="blockId"
+                title="Block Name"
+                handleChange={handleChange}
+                labelClass="labelClass"
+                isMoreOptions={districtListData?.list}
+                main_className="formSelectBx"
                 disabled={isView}
-                // onKeyPress={(event) => handleTextInput(event, 30)}
+                label="Block Name"
               />
             </Grid>
           </Grid>
@@ -212,4 +226,4 @@ const AddDistrictForms = () => {
   );
 };
 
-export default AddDistrictForms;
+export default AddBdoForms;

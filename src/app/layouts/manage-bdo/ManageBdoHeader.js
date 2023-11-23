@@ -6,10 +6,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./style.scss";
+import "../district-officer/style.scss";
 import SearchIcon from "@mui/icons-material/Search";
 
-const ManageDistrictOfficerHeader = ({ handleChangeSearch }) => {
+const ManageBdoHeader = ({ handleChangeSearch }) => {
   const navigate = useNavigate();
 
   return (
@@ -22,14 +22,14 @@ const ManageDistrictOfficerHeader = ({ handleChangeSearch }) => {
             marginTop: "20px",
           }}
         >
-          Manage District Officer
+         Add BDO
         </h3>
       </div>
       <div className="searchBx">
         <OutlinedInput
           id="search"
           type={"search"}
-          onChange={handleChangeSearch}
+          // onChange={handleChangeSearch}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -47,13 +47,13 @@ const ManageDistrictOfficerHeader = ({ handleChangeSearch }) => {
         />
         <Button
           variant="contained"
-          onClick={() => navigate("/district-officer/add-district-officer")}
+          onClick={() => navigate("/manage-bdo/add-bdo")}
         >
-          {"Add  District Officer"}
+          {"Add BDO"}
         </Button>
       </div>
     </>
   );
 };
 
-export default ManageDistrictOfficerHeader;
+export default ManageBdoHeader;

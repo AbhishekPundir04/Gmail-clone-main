@@ -9,7 +9,9 @@ import ResetPassword from "../app/modules/authentication/reset-password/ResetPas
 import SignUp from "../app/modules/authentication/signup/Signup";
 import Inbox from "../app/layouts/homepage/Inbox";
 import DistrictOfficer from "../app/layouts/district-officer/DistrictOfficer";
+import ManageBdo from "../app/layouts/manage-bdo/ManageBdo";
 import AddDistrictForms from "../app/layouts/district-officer/AddDistrictForms";
+import AddBdoForms from "../app/layouts/manage-bdo/AddBdoForms";
 
 export default function MainRoute() {
   return (
@@ -28,6 +30,9 @@ export default function MainRoute() {
           <Route path="/district-officer/add-district-officer" element={<AddDistrictForms />} />
           <Route path="/district-officer/view-district-officer/:id" element={<AddDistrictForms />} />
           <Route path="/district-officer/edit-district-officer/:id" element={<AddDistrictForms />} />
+          <Route path="/manage-bdo" element={<ManageBdo />} />
+          <Route path="/manage-bdo/add-bdo" element={<AddBdoForms />} />
+          <Route path="/manage-bdo/view-district-officer/:id" element={<AddBdoForms />} />
         </Route>
       </Routes>
     </>

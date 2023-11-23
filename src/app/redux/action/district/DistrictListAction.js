@@ -3,7 +3,7 @@ import { GET, POST, PUT } from "../../../../services/api";
 import { cleanObject } from "../../../../utils/commonFunctions";
 import { adminTypes } from "../../type/adminTypes";
 
-export const districtListAction  = (payload) => {
+export const districtListAction = (payload) => {
   return async (dispatch) => {
     try {
       dispatch({

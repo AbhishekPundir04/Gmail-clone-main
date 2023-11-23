@@ -3,7 +3,9 @@ import DistrictOfficerHeader from "./DistrictOfficerHeader";
 import DistrictOfficerTable from "./DistrictOfficerTable";
 import { useDispatch, useSelector } from "react-redux";
 import { districtOfficerAction } from "../../redux/action/district_offer_action/DistrictOfficerAction";
-import {useDebounce} from "../../../customHooks"
+import { useDebounce } from "../../../customHooks";
+import { districtListAction } from "../../redux/action/district/DistrictListAction";
+
 const DistrictOfficer = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -12,21 +14,25 @@ const DistrictOfficer = () => {
   const searchResult = useDebounce(search, 1000);
   const [district, setDistrict] = useState("");
 
-
-
   useEffect(() => {
     dispatch(districtOfficerAction(venPayload));
-  }, [dispatch,page, searchResult, district]);
+  }, [dispatch, page, searchResult, district]);
 
   const districtData = useSelector((store) => store.districtOfficerReducer);
-  console.log(districtData);
+  console.log("data",districtData);
 
   const venPayload = {
     size: rowsPerPage,
     page: page,
     search: searchResult,
   };
-  
+
+  // useEffect(() => {
+  //   dispatch(districtListAction(venPayload));
+  // }, [dispatch,page]);
+
+  // const districtListData = useSelector((store) => store.districtListReducer);
+  // console.log(districtListData);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
