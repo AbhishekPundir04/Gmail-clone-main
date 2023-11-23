@@ -56,20 +56,19 @@ const AddDistrictForms = () => {
   const { handleChange, values, handleSubmit, errors, touched, setFieldValue } =
     formik;
 
-
   //Working api for district List
-    useEffect(() => {
-      dispatch(districtListAction(venPayload));
-    }, [dispatch, rowsPerPage, page]);
-  
-    const venPayload = {
-      size: rowsPerPage,
-      page: page,
-    };
-  
-    const { districtListData } = useSelector(
-      (store) => store.districtListReducer
-    );
+  useEffect(() => {
+    dispatch(districtListAction(venPayload));
+  }, [dispatch, rowsPerPage, page]);
+
+  const venPayload = {
+    size: rowsPerPage,
+    page: page,
+  };
+
+  const { districtListData } = useSelector(
+    (store) => store.districtListReducer
+  );
   console.log("DOnt", districtListData);
 
   //View and Edit
@@ -81,8 +80,6 @@ const AddDistrictForms = () => {
   const { districtDetailsData } = useSelector(
     (store) => store.getDistrictOffcDetailsData
   );
-
-
 
   useEffect(() => {
     if ((isEdit || isView) && districtDetailsData) {
@@ -187,27 +184,28 @@ const AddDistrictForms = () => {
               />
             </Grid>
           </Grid>
-
-          <div className="submitCancelDualBtn" style={{ marginTop: "2rem" }}>
-            <Button
-              variant="outlined"
-              buttonClassName="customButton cancelBtn"
-              onClick={() => navigate("/manage-district-officer")}
-            >
-              <>
-                <span>{"Cancel"}</span>
-              </>
-            </Button>
-            <Button
-              variant="contained"
-              type="submit"
-              buttonClassName="customButton"
-            >
-              <>
-                <span> Update</span>
-              </>
-            </Button>
-          </div>
+          {!isView && (
+            <div className="submitCancelDualBtn" style={{ marginTop: "2rem" }}>
+              <Button
+                variant="outlined"
+                buttonClassName="customButton cancelBtn"
+                onClick={() => navigate("/manage-district-officer")}
+              >
+                <>
+                  <span>{"Cancel"}</span>
+                </>
+              </Button>
+              <Button
+                variant="contained"
+                type="submit"
+                buttonClassName="customButton"
+              >
+                <>
+                  <span> {!isEdit ? "Save" : "Update"}</span>{" "}
+                </>
+              </Button>
+            </div>
+          )}
         </div>
       </form>
     </>
