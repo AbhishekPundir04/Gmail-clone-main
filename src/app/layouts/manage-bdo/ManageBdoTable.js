@@ -26,18 +26,6 @@ export default function ManageBdoTable({
   return (
     <>
       <TableContainer className="tableWrapper ">
-        <div className="filterBx">
-          <p>Filter By</p>
-          <CommonSelect
-            // value={district}
-            name="districtId"
-            title="District"
-            // handleChange={handleChangeDistrict}
-            labelClass="labelClass"
-            // isMoreOptions={districtListData?.list}
-            main_className="formSelectBx"
-          />
-        </div>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -62,7 +50,7 @@ export default function ManageBdoTable({
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.designation}</TableCell>
                     <TableCell>{row.districtId}</TableCell>
-                    <TableCell>{row.userType}</TableCell>
+                    <TableCell>{row.blockId}</TableCell>
                     <TableCell>{row.createdAt}</TableCell>
                     <TableCell>{row.email}</TableCell>
                     <TableCell>
@@ -71,9 +59,7 @@ export default function ManageBdoTable({
                           aria-label="view"
                           color="primary"
                           onClick={() =>
-                            navigate(
-                              `/manage-bdo/view-district-officer/:id${row?._id}`
-                            )
+                            navigate(`/manage-bdo/view-bdo/${row?._id}`)
                           }
                         >
                           <RemoveRedEyeIcon />
@@ -87,7 +73,7 @@ export default function ManageBdoTable({
                           aria-label="view"
                           color="primary"
                           onClick={() =>
-                            navigate(`/manage-bdos/edit-bdo-form/${row?._id}`)
+                            navigate(`/manage-bdo/edit-bdo/${row?._id}`)
                           }
                         >
                           <BorderColorIcon />

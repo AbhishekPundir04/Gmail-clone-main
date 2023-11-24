@@ -4,6 +4,7 @@ import { districtOfficerReducer } from "./district_officer_reducer/DistrictOffic
 import { districtListReducer } from "./district/DistrictListReducer";
 import { getDistrictOffcDetailsData } from "./district_officer_reducer/getDistrictOfficerDetails";
 import { manageBdoReducer } from "./manage_bdo_reducer/ManageBdoReducer";
+import { blockListReducer } from "./block_list_reducer/BlockListReducer";
 import { getBdoDetailsData } from "./manage_bdo_reducer/GetBdoDetails";
 
 export const reducers = combineReducers({
@@ -14,5 +15,7 @@ export const reducers = combineReducers({
   getDistrictOffcDetailsData: getDistrictOffcDetailsData,
   manageBdoReducer: manageBdoReducer,
   getBdoDetailsData:getBdoDetailsData,
+  blockListReducer:blockListReducer,
+  
   
 });

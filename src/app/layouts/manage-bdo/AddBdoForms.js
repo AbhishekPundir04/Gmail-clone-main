@@ -1,26 +1,44 @@
+import { Button, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+// import {
+//   addBdo,
+//   getBdoDetails,
+//   updateBdo,
+// } from "../../../redux/action/ManageBdo/ManageBdoAction";
 import Inputs from "../../components/Input";
 import CommonSelect from "../../components/select";
-import { useFormik } from "formik";
-import {
-  addDistrictsOfficer,
-  getDistrictOfficerDetails,
-  updateDistrictOfficer,
-} from "../../redux/action/district_offer_action/DistrictOfficerAction";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Grid } from "@mui/material";
+import { addBdo, getBdoDetails, updateBdo } from "../../redux/action/manage_bdo_action/ManageBdoAction";
 import { districtListAction } from "../../redux/action/district/DistrictListAction";
+import { blockListAction } from "../../redux/action/manage_block_list_action/ManageBlockListAction";
 
 const AddBdoForms = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const { id } = useParams();
-  const isEdit = location.pathname.includes("edit");
-  const isView = location.pathname.includes("view");
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(1);
+  const location = useLocation();
+  const isEdit = location.pathname.includes("edit");
+  const isView = location.pathname.includes("view");
+  const { id } = useParams();
+
+  const addBdoValidation = yup.object().shape({
+    name: yup
+    .string()
+    .min(3, `*Officer Name must be at least 3 characters`)
+    .max(30, "*Officer Name must be less than 30 characters")
+    .required("*Officer Name is required")
+    .trim(),
+    email: yup.string().required("*Email is required"),
+    phone: yup.string("").required("*Mobile number is required"),
+    designation: yup.string().required("*Designation is required"),
+    districtId: yup.string().required("*District is required"),
+    blockId: yup.string().required("*Block Name is required"),
+    address: yup.string().required("*Address is required"),
+  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const initialValues = {
     name: "",
@@ -29,39 +47,50 @@ const AddBdoForms = () => {
     designation: "",
     address: "",
     districtId: "",
+    blockId: "",
   };
 
   const onSubmit = (values) => {
     !isEdit
       ? dispatch(
-          addDistrictsOfficer(values, () => {
-            navigate("/district-officer");
+          addBdo(values, () => {
+            navigate("/manage-bdos");
           })
         )
       : dispatch(
-          updateDistrictOfficer(id, values, () => {
-            navigate("/district-officer");
+          updateBdo(id, values, () => {
+            navigate("/manage-bdos");
           })
         );
   };
 
-  useEffect(() => {
-    (isEdit || isView) && dispatch(getDistrictOfficerDetails(id));
-  }, [dispatch, id, isEdit, isView]);
-
   const formik = useFormik({
     initialValues,
     onSubmit,
+    // validationSchema: addBdoValidation,
   });
   const { handleChange, values, handleSubmit, errors, touched, setFieldValue } =
     formik;
 
-  //Working api for district List
+  const venPayload = {
+    size: rowsPerPage,
+    page: page,
+  };
+
+  const handleDistrictChange = (e) => {
+    setFieldValue("districtId", e.target.value);
+    const updatedVenPayload = {
+      ...venPayload,
+      districtId: e.target.value,
+    };
+    dispatch(blockListAction(updatedVenPayload));
+  };
+
   useEffect(() => {
-    dispatch(districtListAction(venPayload));
+    dispatch(districtListAction(payload));
   }, [dispatch, rowsPerPage, page]);
 
-  const venPayload = {
+  const payload = {
     size: rowsPerPage,
     page: page,
   };
@@ -69,37 +98,42 @@ const AddBdoForms = () => {
   const { districtListData } = useSelector(
     (store) => store.districtListReducer
   );
-  console.log("DOnt", districtListData);
 
-  //View and Edit
+  const { blockListData } = useSelector((store) => store.blockListReducer);
 
-  useEffect(() => {
-    (isEdit || isView) && dispatch(getDistrictOfficerDetails(id));
+  useEffect((id) => {
+    (isEdit || isView) && dispatch(getBdoDetails(id));
   }, [dispatch, id, isEdit, isView]);
 
-  const { bdoDetailsData } = useSelector(
-    (store) => store.getDistrictOffcDetailsData
-  );
+  const { bdoDetailsData } = useSelector((store) => store.getBdoDetailsData);
 
   useEffect(() => {
     if ((isEdit || isView) && bdoDetailsData) {
       setFieldValue("name", bdoDetailsData.name);
+      setFieldValue("email", bdoDetailsData.email);
+      setFieldValue("phone", bdoDetailsData.phone);
       setFieldValue("designation", bdoDetailsData.designation);
       setFieldValue("districtId", bdoDetailsData?.districtData?.[0]?._id);
-      setFieldValue("email", bdoDetailsData.blockId);
-      setFieldValue("phone", bdoDetailsData.email);
-
-      setFieldValue("phone", bdoDetailsData.createdAt);
+      setFieldValue("blockId", bdoDetailsData?.blockData?.[0]?._id);
       setFieldValue("address", bdoDetailsData.address);
     }
   }, [isEdit, isView, setFieldValue, bdoDetailsData]);
+
+  const handleBlockChange = (e) => {
+    setFieldValue("blockId", e.target.value);
+    const updatedVenPayload = {
+      ...venPayload,
+      blockId: e.target.value,
+    };
+    dispatch(blockListAction(updatedVenPayload));
+  };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div className="main_bx_wrapper">
           <p className="form_heading" sx={{ marginBottom: "1.5rem" }}>
-            {!isEdit ? "Add BDO" : "Edit District Officer"}
+            {!isEdit ? " Add BDO" : " Edit BDO"}
           </p>
 
           <Grid container spacing={2}>
@@ -109,27 +143,33 @@ const AddBdoForms = () => {
                 name="name"
                 onChange={handleChange}
                 showStar={true}
-                title="District Officer Name"
+                title="BDO Name"
                 placeholder="Enter district officer name"
                 istextField={true}
                 labelClassTextfield="labelClassTextfield"
                 disabled={isView}
               />
+              {touched.name && errors.name && (
+                <div className="error">{errors.name}</div>
+              )}
             </Grid>
+
             <Grid item xs={6}>
               <Inputs
                 value={values.email}
                 name="email"
-                onChange={handleChange}
                 showStar={true}
+                onChange={handleChange}
                 title="Email Address"
-                placeholder="Enter district officer name"
+                placeholder="Enter email address"
                 istextField={true}
                 labelClassTextfield="labelClassTextfield"
                 disabled={isView}
               />
+              {touched.email && errors.email && (
+                <div className="error">{errors.email}</div>
+              )}
             </Grid>
-
             <Grid item xs={6}>
               <Inputs
                 value={values.phone}
@@ -137,65 +177,76 @@ const AddBdoForms = () => {
                 showStar={true}
                 onChange={handleChange}
                 title="Mobile Number"
-                placeholder="Enter the phone number"
+                placeholder="Enter mobile number"
                 istextField={true}
                 labelClassTextfield="labelClassTextfield"
                 disabled={isView}
-                // onKeyPress={(event) => handleTextInput(event, 10)}
-                // onInput={(e) => onlyNumbers(e)}
               />
+              {touched.phone && errors.phone && (
+                <div className="error">{errors.phone}</div>
+              )}
             </Grid>
             <Grid item xs={6}>
               <Inputs
                 value={values.designation}
                 name="designation"
-                onChange={handleChange}
                 showStar={true}
-                title="Desgination"
-                placeholder="Enter district officer name"
+                onChange={handleChange}
+                title="Designation"
+                placeholder="Enter the phone number"
                 istextField={true}
                 labelClassTextfield="labelClassTextfield"
                 disabled={isView}
               />
+              {touched.designation && errors.designation && (
+                <div className="error">{errors.designation}</div>
+              )}
             </Grid>
             <Grid item xs={6}>
               <Inputs
-                value={values.designation}
+                value={values.address}
                 name="address"
                 onChange={handleChange}
                 showStar={true}
                 title="Address"
-                placeholder="Enter district officer name"
+                placeholder="Enter address"
                 istextField={true}
                 labelClassTextfield="labelClassTextfield"
                 disabled={isView}
               />
+              {touched.address && errors.address && (
+                <div className="error">{errors.address}</div>
+              )}
             </Grid>
             <Grid item xs={6}>
               <CommonSelect
-                value={values.districtId}
+                selectedValue={values.districtId}
                 name="districtId"
                 title="District"
-                handleChange={handleChange}
+                handleChange={handleDistrictChange}
                 labelClass="labelClass"
                 isMoreOptions={districtListData?.list}
                 main_className="formSelectBx"
-                disabled={isView}
-                label="District"
+                label="Districts"
               />
+              {touched.districtId && errors.districtId && (
+                <div className="error">{errors.districtId}</div>
+              )}
             </Grid>
             <Grid item xs={6}>
               <CommonSelect
-                value={values.districtId}
+                selectedValue={values.blockId}
                 name="blockId"
                 title="Block Name"
-                handleChange={handleChange}
+                handleChange={handleBlockChange}
                 labelClass="labelClass"
-                isMoreOptions={districtListData?.list}
+                isMoreOptions={blockListData?.list}
                 main_className="formSelectBx"
-                disabled={isView}
-                label="Block Name"
+                label="Block"
               />
+              {touched.blockId && errors.blockId && (
+                <div className="error">{errors.blockId}</div>
+              )}
             </Grid>
           </Grid>
           {!isView && (
@@ -203,7 +254,7 @@ const AddBdoForms = () => {
               <Button
                 variant="outlined"
                 buttonClassName="customButton cancelBtn"
-                onClick={() => navigate("/district-officer")}
+                onClick={() => navigate("/manage-bdos")}
               >
                 <>
                   <span>{"Cancel"}</span>
@@ -211,11 +262,11 @@ const AddBdoForms = () => {
               </Button>
               <Button
                 variant="contained"
-                type="submit"
+                type={"submit"}
                 buttonClassName="customButton"
               >
                 <>
-                  <span> {!isEdit ? "Save" : "Update"}</span>{" "}
+                  <span>{!isEdit ? "Save" : "Update"}</span>
                 </>
               </Button>
             </div>

@@ -35,7 +35,6 @@ const DistrictOfficerTable = ({
   console.log("first", rows);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(districtListAction(venPayload));
   }, [dispatch, rowsPerPage, page]);
@@ -48,22 +47,13 @@ const DistrictOfficerTable = ({
   const { districtListData } = useSelector(
     (store) => store.districtListReducer
   );
-  console.log("districtListData",districtListData)
-
-  // const getDistrictByName = (id) =>{
-  //   let districtName = districtListData?.list?.find((district)=>district.districtId===id)
-
-  //   return districtName?.name;
-  // }
-  // console.log("first dd", getDistrictByName("random"))
+  console.log("districtListData", districtListData);
 
   const getDistrictNameById = (id) => {
     let districtName = districtListData?.list?.find(
-      (district) => district.districtId === id
-    );
-    console.log("data", districtName);
-
-    return districtName?.name;
+    (district) => district?._id === id 
+  );
+  return districtName?.name;
   };
   console.log("districtName", getDistrictNameById("655c515c86b3b78bd4aad4c0"));
 

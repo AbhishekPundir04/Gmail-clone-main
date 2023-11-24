@@ -32,7 +32,9 @@ export default function MainRoute() {
           <Route path="/district-officer/edit-district-officer/:id" element={<AddDistrictForms />} />
           <Route path="/manage-bdo" element={<ManageBdo />} />
           <Route path="/manage-bdo/add-bdo" element={<AddBdoForms />} />
-          <Route path="/manage-bdo/view-district-officer/:id" element={<AddBdoForms />} />
+          <Route path="/manage-bdo/view-bdo/:id" element={<AddBdoForms />} />
+          <Route path="/manage-bdo/edit-bdo/:id" element={<AddBdoForms />} />
+
         </Route>
       </Routes>
     </>

@@ -30,20 +30,32 @@ export const manageBdoAction = (payload) => {
   };
 };
 
-
-export const addDistrictsOfficer = (values, callback) => {
+export const addBdo = (values, callback) => {
   return async () => {
     const users = {
-      name: values.name,
+      ...values,
       cond: "ADD",
-      email: values.email,
-      phone: values.phone,
-      designation: values.designation,
-      address: values.address,
-      districtId: values.districtId,
     };
     const cleanedPayload = cleanObject(users);
-    const res = await POST(`admin/do/add-edit-do`, cleanedPayload);
+    const res = await POST(`common/bdo/add-edit-bdo`, cleanedPayload);
+    if (res?.data?.status_code === 200) {
+      toast.success(res?.data?.message);
+      callback();
+    } else {
+      toast.error(res?.data?.message);
+    }
+  };
+};
+
+export const updateBdo = (id, values, callback) => {
+  return async () => {
+    const users = {
+      ...values,
+      cond: "EDIT",
+      bdoId: id,
+    };
+    const cleanedPayload = cleanObject(users);
+    const res = await POST(`common/bdo/add-edit-bdo`, cleanedPayload);
     if (res?.data?.status_code === 200) {
       toast.success(res?.data?.message);
       callback();

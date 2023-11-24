@@ -28,6 +28,10 @@ const ManageBdo = () => {
         <ManageBdoHeader/>
         <ManageBdoTable
         rows={bdoData?.bdoData?.list ?? []}
+        count={bdoData?.count ?? 0}
+        page={page}
+        rowsPerPage={rowsPerPage}
+
         />
     </div>
   )
