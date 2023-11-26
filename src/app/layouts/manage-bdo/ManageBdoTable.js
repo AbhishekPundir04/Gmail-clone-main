@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom";
 import CommonSelect from "../../components/select";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
+import { districtListAction } from "../../redux/action/district/DistrictListAction";
+import { useDispatch, useSelector } from "react-redux";
+import { blockListAction } from "../../redux/action/manage_block_list_action/ManageBlockListAction";
 export default function ManageBdoTable({
   rows,
   count,
@@ -22,7 +25,45 @@ export default function ManageBdoTable({
   const navigate = useNavigate();
   const totalPages = Math.ceil(count / rowsPerPage);
   const startIndex = (page - 1) * rowsPerPage + 1;
+  const dispatch = useDispatch();
+
   console.log(rows, "rows");
+
+  React.useEffect(() => {
+    dispatch(districtListAction(venPayload));
+  }, [dispatch, rowsPerPage, page]);
+
+  const venPayload = {
+    size: rowsPerPage,
+    page: page,
+  };
+
+  const { districtListData } = useSelector(
+    (store) => store.districtListReducer
+  );
+  console.log("districtListData", districtListData);
+
+  const getDistrictNameById = (id) => {
+    let districtName = districtListData?.list?.find(
+      (district) => district?._id === id
+    );
+    return districtName?.name;
+  };
+  console.log("districtName", getDistrictNameById("655c515c86b3b78bd4aad4c0"));
+
+  React.useEffect(() => {
+    dispatch(blockListAction(venPayload));
+  }, [dispatch, rowsPerPage, page]);
+
+  const { blockListData } = useSelector((store) => store.blockListReducer);
+  const getBlockById = (id) => {
+    let blockName = blockListData?.list?.find(
+      (district) => district?._id === id
+    );
+    return blockName?.name;
+  };
+  console.log("districtName", getBlockById("655c515c86b3b78bd4aad4c0"));
+
   return (
     <>
       <TableContainer className="tableWrapper ">
@@ -49,8 +90,8 @@ export default function ManageBdoTable({
                     </TableCell> */}
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.designation}</TableCell>
-                    <TableCell>{row.districtId}</TableCell>
-                    <TableCell>{row.blockId}</TableCell>
+                    <TableCell>{getDistrictNameById(row.districtId)}</TableCell>
+                    <TableCell>{getBlockById(row.blockId)}</TableCell>
                     <TableCell>{row.createdAt}</TableCell>
                     <TableCell>{row.email}</TableCell>
                     <TableCell>
@@ -64,10 +105,6 @@ export default function ManageBdoTable({
                         >
                           <RemoveRedEyeIcon />
                         </IconButton>
-                        {/* <Switch
-                          onChange={(e) => handleChangeSwitch(e, row)}
-                          inputProps={{ "aria-label": "controlled" }}
-                        /> */}
 
                         <IconButton
                           aria-label="view"

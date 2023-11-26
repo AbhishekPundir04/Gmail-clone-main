@@ -1,20 +1,19 @@
 .main_input_wrapper {
-    .labelClassTextfield {
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 24px;
-      margin-bottom: 10px;
-      color: #000;
-    }
-    .MuiInputBase-root {
-      height: 58px;
-      border-radius: 8px;
-    }
-    .MuiInputLabel-root{
-      margin-bottom: 10px;
-      font-weight: 500;
-      font-size: 16px;
-      color: #000;
-    }
+  .labelClassTextfield {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    margin-bottom: 10px;
+    color: #000;
   }
-  
+  .MuiInputBase-root {
+    height: 58px;
+    border-radius: 8px;
+  }
+  .MuiInputLabel-root{
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #000;
+  }
+}

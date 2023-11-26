@@ -29,7 +29,7 @@ const ManageBdoHeader = ({ handleChangeSearch }) => {
         <OutlinedInput
           id="search"
           type={"search"}
-          // onChange={handleChangeSearch}
+          onChange={handleChangeSearch}
           endAdornment={
             <InputAdornment position="end">
               <IconButton

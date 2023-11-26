@@ -4,8 +4,8 @@ import { districtOfficerReducer } from "./district_officer_reducer/DistrictOffic
 import { districtListReducer } from "./district/DistrictListReducer";
 import { getDistrictOffcDetailsData } from "./district_officer_reducer/getDistrictOfficerDetails";
 import { manageBdoReducer } from "./manage_bdo_reducer/ManageBdoReducer";
-import { blockListReducer } from "./block_list_reducer/BlockListReducer";
 import { getBdoDetailsData } from "./manage_bdo_reducer/GetBdoDetails";
+import { blockListReducer } from "./block_list_reducer/BlockListReducer";
 
 export const reducers = combineReducers({
   auth: authReducer,

@@ -58,3 +58,26 @@ export default function Inputs({
     </div>
   );
 }
+
+// use like this
+
+{
+  /* <Grid item xs={6}>
+<Inputs
+  value={values.vehicleName}
+  name="vehicleName"
+  onChange={handleChange}
+  title="Vehicle Name"
+  showStar={true}
+  placeholder="Enter the vehicle name"
+  istextField={true}
+  disabled={isView}
+  labelClassTextfield="labelClassTextfield"
+  onInput={onlyCaptilizeCharacters}
+  onKeyPress={(event) => handleTextInput(event, 30)}
+/>
+{touched.vehicleName && errors.vehicleName && (
+  <div className="error">{errors.vehicleName}</div>
+)}
+</Grid> */
+}

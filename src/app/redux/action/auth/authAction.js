@@ -1,5 +1,5 @@
 import { authTypes } from "../../type/auth/auth";
-import axios, { POST } from "../../../../../src/services/api"
+import axios, { POST } from "../../../../../src/services/api";
 import { toast } from "react-toastify";
 import getUniqueDeviceId from "../../../../utils/commonFunctions";
 

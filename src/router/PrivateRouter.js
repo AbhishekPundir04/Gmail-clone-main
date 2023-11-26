@@ -4,7 +4,7 @@ import { DashboardLayout } from "../app/layouts";
 import { Navigate } from "react-router-dom";
 
 export default function PrivateRouter() {
-  const isloggedIn = true;
+  const isloggedIn = localStorage.getItem("ACCESS_TOKEN");
 
   return (
     <>

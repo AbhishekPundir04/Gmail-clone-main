@@ -16,6 +16,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { districtOfficerAction } from "../../redux/action/district_offer_action/DistrictOfficerAction";
 import { useDispatch, useSelector } from "react-redux";
 import { districtListAction } from "../../redux/action/district/DistrictListAction";
+import CommonSelect from "../../components/select";
 
 const DistrictOfficerTable = ({
   rows,
@@ -51,15 +52,28 @@ const DistrictOfficerTable = ({
 
   const getDistrictNameById = (id) => {
     let districtName = districtListData?.list?.find(
-    (district) => district?._id === id 
-  );
-  return districtName?.name;
+      (district) => district?._id === id
+    );
+    return districtName?.name;
   };
   console.log("districtName", getDistrictNameById("655c515c86b3b78bd4aad4c0"));
+
 
   return (
     <>
       <TableContainer className="tableWrapper ">
+        {/* <div className="filterBx">
+          <p>Filter By</p>
+          <CommonSelect
+            value={district}
+            name="districtId"
+            title="District"
+            handleChange={handleChangeDistrict}
+            labelClass="labelClass"
+            isMoreOptions={districtListData?.list}
+            main_className="formSelectBx"
+          />
+        </div> */}
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>

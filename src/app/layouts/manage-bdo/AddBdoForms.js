@@ -11,7 +11,11 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 // } from "../../../redux/action/ManageBdo/ManageBdoAction";
 import Inputs from "../../components/Input";
 import CommonSelect from "../../components/select";
-import { addBdo, getBdoDetails, updateBdo } from "../../redux/action/manage_bdo_action/ManageBdoAction";
+import {
+  addBdo,
+  getBdoDetails,
+  updateBdo,
+} from "../../redux/action/manage_bdo_action/ManageBdoAction";
 import { districtListAction } from "../../redux/action/district/DistrictListAction";
 import { blockListAction } from "../../redux/action/manage_block_list_action/ManageBlockListAction";
 
@@ -25,11 +29,11 @@ const AddBdoForms = () => {
 
   const addBdoValidation = yup.object().shape({
     name: yup
-    .string()
-    .min(3, `*Officer Name must be at least 3 characters`)
-    .max(30, "*Officer Name must be less than 30 characters")
-    .required("*Officer Name is required")
-    .trim(),
+      .string()
+      .min(3, `*Officer Name must be at least 3 characters`)
+      .max(30, "*Officer Name must be less than 30 characters")
+      .required("*Officer Name is required")
+      .trim(),
     email: yup.string().required("*Email is required"),
     phone: yup.string("").required("*Mobile number is required"),
     designation: yup.string().required("*Designation is required"),
@@ -54,12 +58,12 @@ const AddBdoForms = () => {
     !isEdit
       ? dispatch(
           addBdo(values, () => {
-            navigate("/manage-bdos");
+            navigate("/manage-bdo");
           })
         )
       : dispatch(
           updateBdo(id, values, () => {
-            navigate("/manage-bdos");
+            navigate("/manage-bdo");
           })
         );
   };
@@ -101,9 +105,12 @@ const AddBdoForms = () => {
 
   const { blockListData } = useSelector((store) => store.blockListReducer);
 
-  useEffect((id) => {
-    (isEdit || isView) && dispatch(getBdoDetails(id));
-  }, [dispatch, id, isEdit, isView]);
+  useEffect(
+    (id) => {
+      (isEdit || isView) && dispatch(getBdoDetails(id));
+    },
+    [dispatch, id, isEdit, isView]
+  );
 
   const { bdoDetailsData } = useSelector((store) => store.getBdoDetailsData);
 

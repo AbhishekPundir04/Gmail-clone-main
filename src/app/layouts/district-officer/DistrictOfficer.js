@@ -27,12 +27,6 @@ const DistrictOfficer = () => {
     search: searchResult,
   };
 
-  // useEffect(() => {
-  //   dispatch(districtListAction(venPayload));
-  // }, [dispatch,page]);
-
-  // const districtListData = useSelector((store) => store.districtListReducer);
-  // console.log(districtListData);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -40,6 +34,10 @@ const DistrictOfficer = () => {
 
   const handleChangeSearch = (e) => {
     setSearch(e.target.value);
+  };
+
+  const handleChangeDistrict = (event) => {
+    setDistrict(event.target.value);
   };
   return (
     <div>
@@ -50,6 +48,10 @@ const DistrictOfficer = () => {
         page={page}
         rowsPerPage={rowsPerPage}
         handleChangePage={handleChangePage}
+        handleChangeDistrict={handleChangeDistrict}
+        district={district}
+
+
       />
     </div>
   );
